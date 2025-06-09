@@ -1,7 +1,4 @@
 # zshrc config file.
-alias vim="nvim"
-alias v="nvim"
-
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
@@ -21,3 +18,7 @@ export PROMPT='${COLOR_USR}%n %f@ ${COLOR_DIR}%d ${COLOR_GIT}$(parse_git_branch)
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+alias vim="nvim"
+alias v="nvim"
+alias sail="./vendor/bin/sail"
