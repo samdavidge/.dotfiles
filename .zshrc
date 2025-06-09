@@ -1,5 +1,4 @@
 # zshrc config file.
-
 alias vim="nvim"
 alias v="nvim"
 
@@ -16,8 +15,6 @@ NEWLINE=$'\n'
 # Set zsh option for prompt substitution
 setopt PROMPT_SUBST
 export PROMPT='${COLOR_USR}%n %f@ ${COLOR_DIR}%d ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF}${NEWLINE} ➡️ '
-
-
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
