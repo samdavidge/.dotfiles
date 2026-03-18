@@ -1,7 +1,31 @@
 # zshrc config file.
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+  }
+
+# Run: git config --global alias.clean-branch '!git_clean_branches'
+git_clean_branches() {
+  local force=false
+  if [[ "$1" == "-f" ]]; then
+    force=true
+  fi
+
+  git fetch --prune
+
+  git branch -vv | grep '\[origin.*gone\]' | awk '{print $1}' | while read branch; do
+  created=$(git log -1 --format=%ai "$branch" | cut -d' ' -f1)
+  created_epoch=$(date -jf '%Y-%m-%d' "$created" +%s)
+  now_epoch=$(date +%s)
+  if [ $((now_epoch - created_epoch)) -gt 86400 ]; then
+    if [ "$force" = true ]; then
+      git branch -D "$branch"
+    else
+      echo "Would delete: $branch (created $created)"
+    fi
+  fi
+done
 }
+
 
 # Prompt Formatting (https://misc.flogisoft.com/bash/tip_colors_and_formatting)
 COLOR_DEF='%f'
@@ -23,3 +47,4 @@ alias vim="nvim"
 alias v="nvim"
 alias sail="./vendor/bin/sail"
 alias ai="gh copilot"
+alias clean-branches='git_clean_branches'
